@@ -1,0 +1,94 @@
+.urgency-banner {
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+  animation: ubSlideIn 0.5s ease both;
+}
+
+@keyframes ubSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.urgency-banner.emergency {
+  background: linear-gradient(135deg, #DC2626, #B91C1C);
+  color: #FFFFFF;
+}
+
+.urgency-banner.urgent {
+  background: linear-gradient(135deg, #EA580C, #C2410C);
+  color: #FFFFFF;
+}
+
+.urgency-banner.caution {
+  background: linear-gradient(135deg, #CA8A04, #A16207);
+  color: #FFFFFF;
+}
+
+.urgency-banner.safe {
+  background: linear-gradient(135deg, #16A34A, #15803D);
+  color: #FFFFFF;
+}
+
+.urgency-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.urgency-banner-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.urgency-banner-text h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.urgency-banner-text p {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 4px 0 0;
+}
+
+.urgency-banner-action {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+
+.urgency-banner-action:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 640px) {
+  .urgency-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .urgency-banner-action {
+    text-align: center;
+  }
+}

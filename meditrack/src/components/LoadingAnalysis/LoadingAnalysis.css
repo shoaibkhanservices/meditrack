@@ -1,0 +1,237 @@
+/* LoadingAnalysis.css — Full-screen AI analysis loading state */
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes heartbeatLine {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+}
+
+.loading-analysis {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at center,
+    #FFFFFF 0%,
+    #F8FAFC 50%,
+    #F1F5F9 100%
+  );
+  z-index: 1000;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Icon Container ── */
+.loading-analysis__icon-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.loading-analysis__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #DBEAFE;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.loading-analysis__ring:nth-child(2) {
+  inset: -12px;
+  border-color: #EFF6FF;
+  animation-delay: 0.5s;
+}
+
+.loading-analysis__ring:nth-child(3) {
+  inset: -24px;
+  border-color: #F8FAFF;
+  animation-delay: 1s;
+}
+
+.loading-analysis__icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: breathe 3s ease-in-out infinite;
+  box-shadow:
+    0 8px 32px rgba(26, 86, 219, 0.12),
+    0 2px 8px rgba(26, 86, 219, 0.06);
+}
+
+.loading-analysis__icon-circle svg {
+  color: #1A56DB;
+}
+
+/* ── Heartbeat SVG ── */
+.loading-analysis__heartbeat {
+  width: 200px;
+  height: 40px;
+  margin-bottom: 32px;
+  overflow: visible;
+}
+
+.loading-analysis__heartbeat-line {
+  fill: none;
+  stroke: #1A56DB;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 600;
+  animation: heartbeatLine 2s linear infinite;
+  opacity: 0.6;
+}
+
+/* ── Text Messages ── */
+.loading-analysis__text-container {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.loading-analysis__text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+  letter-spacing: -0.01em;
+  animation: textFadeIn 3s ease-in-out infinite;
+  text-align: center;
+}
+
+/* ── Progress Dots ── */
+.loading-analysis__dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.loading-analysis__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1A56DB;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loading-analysis__dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-analysis__dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* ── Shimmer Bar ── */
+.loading-analysis__shimmer-container {
+  width: 200px;
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 24px;
+}
+
+.loading-analysis__shimmer-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #1A56DB 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── Branding ── */
+.loading-analysis__brand {
+  position: absolute;
+  bottom: 48px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #D1D5DB;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

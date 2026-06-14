@@ -1,0 +1,111 @@
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-background);
+}
+
+.dashboard-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Glassmorphic Floating Bottom Navigation */
+.dashboard-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  max-width: 440px;
+  margin: 0 auto;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 12px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(8, 145, 178, 0.08),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Nav Item styling */
+.dashboard-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+  width: 76px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.dashboard-nav-icon {
+  transition: transform var(--transition-fast);
+}
+
+.dashboard-nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Hover effect on desktop */
+@media (hover: hover) {
+  .dashboard-nav-item:hover {
+    color: var(--color-primary);
+  }
+  .dashboard-nav-item:hover .dashboard-nav-icon {
+    transform: translateY(-2px);
+  }
+}
+
+/* Active Item state */
+.dashboard-nav-item.active {
+  color: var(--color-primary);
+}
+
+.dashboard-nav-item.active .dashboard-nav-icon {
+  transform: translateY(-2px) scale(1.08);
+  color: var(--color-primary);
+}
+
+.dashboard-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--color-primary);
+  animation: activeDotIn var(--transition-fast) forwards;
+}
+
+@keyframes activeDotIn {
+  from { transform: translateX(-50%) scale(0); opacity: 0; }
+  to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* Adjust mobile layout screens bottom paddings to avoid cutoff by navbar */
+.home-screen,
+.history-screen,
+.profile-screen {
+  padding-bottom: 88px !important;
+}

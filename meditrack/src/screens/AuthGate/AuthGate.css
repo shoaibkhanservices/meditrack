@@ -1,0 +1,231 @@
+.auth-gate {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: 'Inter', sans-serif;
+  background: #F9FAFB;
+}
+
+/* Hero section */
+.auth-hero {
+  position: relative;
+  background: linear-gradient(135deg, #1A56DB 0%, #1E40AF 100%);
+  padding: 60px 24px 80px;
+  text-align: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.auth-hero-content {
+  position: relative;
+  z-index: 2;
+  animation: authHeroIn 0.7s ease both;
+}
+
+@keyframes authHeroIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+
+.auth-hero p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+/* Floating medical icons */
+.auth-float-icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.08);
+  animation: authFloat 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.auth-float-icon:nth-child(1) {
+  top: 20px;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.auth-float-icon:nth-child(2) {
+  top: 40px;
+  right: 12%;
+  animation-delay: 1.5s;
+}
+
+.auth-float-icon:nth-child(3) {
+  bottom: 50px;
+  left: 20%;
+  animation-delay: 3s;
+}
+
+.auth-float-icon:nth-child(4) {
+  bottom: 30px;
+  right: 18%;
+  animation-delay: 4.5s;
+}
+
+@keyframes authFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-12px) rotate(5deg); }
+  50% { transform: translateY(-6px) rotate(-3deg); }
+  75% { transform: translateY(-14px) rotate(4deg); }
+}
+
+/* Card section */
+.auth-card {
+  background: #FFFFFF;
+  border-radius: 24px 24px 0 0;
+  margin-top: -40px;
+  padding: 36px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.06);
+  animation: authCardUp 0.6s ease 0.2s both;
+}
+
+@keyframes authCardUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card-inner {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-btn-primary {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1A56DB, #1E40AF);
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+  animation: authBtnFade 0.5s ease 0.4s both;
+  box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+}
+
+.auth-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 86, 219, 0.4);
+}
+
+.auth-btn-primary:active {
+  transform: translateY(0);
+}
+
+.auth-btn-secondary {
+  width: 100%;
+  height: 52px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+  animation: authBtnFade 0.5s ease 0.55s both;
+}
+
+.auth-btn-secondary:hover {
+  border-color: #1A56DB;
+  background: #F8FAFF;
+}
+
+@keyframes authBtnFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin: 8px 0;
+  animation: authBtnFade 0.5s ease 0.6s both;
+}
+
+.auth-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #E5E7EB;
+}
+
+.auth-divider-text {
+  font-size: 13px;
+  color: #9CA3AF;
+  font-weight: 500;
+}
+
+.auth-guest-link {
+  font-size: 14px;
+  color: #6B7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  padding: 8px;
+  transition: color 0.2s ease;
+  animation: authBtnFade 0.5s ease 0.65s both;
+}
+
+.auth-guest-link:hover {
+  color: #1A56DB;
+}
+
+.auth-disclaimer {
+  font-size: 12px;
+  color: #9CA3AF;
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.5;
+  animation: authBtnFade 0.5s ease 0.7s both;
+}
+
+@media (min-width: 768px) {
+  .auth-hero {
+    padding: 80px 24px 100px;
+  }
+
+  .auth-hero h1 {
+    font-size: 36px;
+  }
+
+  .auth-card {
+    border-radius: 24px;
+    margin: -40px auto 0;
+    max-width: 440px;
+    flex: unset;
+    padding: 40px 32px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  }
+}

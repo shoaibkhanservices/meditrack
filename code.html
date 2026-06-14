@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediTrack | Symptom Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#380d00",
+                      "on-primary": "#ffffff",
+                      "safe": "#16A34A",
+                      "surface-container-high": "#e7e8e9",
+                      "primary-dark": "#1E40AF",
+                      "on-primary-fixed-variant": "#003dab",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface": "#f8f9fa",
+                      "tertiary-fixed": "#ffdbcf",
+                      "border": "#E5E7EB",
+                      "on-secondary-fixed": "#0e1d2b",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#f3f4f5",
+                      "primary": "#003fb1",
+                      "secondary-container": "#d5e4f8",
+                      "surface-variant": "#e1e3e4",
+                      "tertiary": "#852b00",
+                      "primary-fixed": "#dbe1ff",
+                      "secondary-fixed-dim": "#b9c8db",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "caution": "#CA8A04",
+                      "urgent": "#EA580C",
+                      "on-tertiary-container": "#ffd4c5",
+                      "on-secondary-container": "#576676",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "background": "#f8f9fa",
+                      "text-secondary": "#6B7280",
+                      "surface-container-highest": "#e1e3e4",
+                      "primary-fixed-dim": "#b5c4ff",
+                      "on-background": "#191c1d",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#ad3b00",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#1a56db",
+                      "surface-container": "#edeeef",
+                      "on-primary-fixed": "#00174d",
+                      "on-tertiary-fixed-variant": "#802a00",
+                      "on-primary-container": "#d4dcff",
+                      "outline-variant": "#c3c5d7",
+                      "emergency": "#DC2626",
+                      "inverse-primary": "#b5c4ff",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-fixed": "#d5e4f8",
+                      "on-secondary-fixed-variant": "#3a4858",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "surface-dim": "#d9dadb",
+                      "surface-tint": "#1353d8",
+                      "secondary": "#516070",
+                      "text-primary": "#111827",
+                      "outline": "#737686",
+                      "inverse-surface": "#2e3132",
+                      "on-surface-variant": "#434654"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gap-xs": "4px",
+                      "gap-lg": "16px",
+                      "margin-mobile": "16px",
+                      "gap-sm": "8px",
+                      "base": "4px",
+                      "gap-md": "12px",
+                      "margin-tablet": "24px",
+                      "section-spacing": "24px"
+              },
+              "fontFamily": {
+                      "disclaimer": ["Inter"],
+                      "body-small": ["Inter"],
+                      "heading-2": ["Inter"],
+                      "body-regular": ["Inter"],
+                      "label-uppercase": ["Inter"],
+                      "display-hero": ["Inter"],
+                      "display-hero-mobile": ["Inter"],
+                      "heading-1": ["Inter"],
+                      "button-text": ["Inter"]
+              },
+              "fontSize": {
+                      "disclaimer": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "body-small": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "heading-2": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body-regular": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-uppercase": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                      "display-hero": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "display-hero-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "heading-1": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "button-text": ["16px", {"lineHeight": "20px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E5E7EB;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-on-background border-b border-border dark:border-outline shadow-sm docked full-width top-0 z-50">
+<nav class="flex justify-between items-center w-full px-margin-tablet max-w-7xl mx-auto h-16">
+<div class="flex items-center gap-gap-lg">
+<span class="font-display-hero text-display-hero text-primary dark:text-primary-fixed">MediTrack</span>
+<div class="hidden md:flex gap-gap-lg items-center ml-8">
+<a class="font-heading-2 text-heading-2 text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Home</a>
+<a class="font-heading-2 text-heading-2 text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">History</a>
+<a class="font-heading-2 text-heading-2 text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Profile</a>
+</div>
+</div>
+<div class="flex items-center gap-gap-md">
+<button class="hidden md:block bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-button-text text-button-text hover:opacity-90 transition-all active:scale-95">
+                    Emergency Help
+                </button>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors" data-icon="account_circle">account_circle</span>
+</div>
+</nav>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-tablet py-section-spacing">
+<!-- Urgency Banner -->
+<div class="sticky top-20 z-40 mb-section-spacing animate-in fade-in slide-in-from-top-4 duration-500">
+<div class="h-[72px] bg-urgent text-white flex items-center justify-between px-margin-tablet rounded-xl shadow-lg border border-white/20">
+<div class="flex items-center gap-gap-lg">
+<div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<p class="font-heading-1 text-heading-1 leading-none">See Doctor Today</p>
+<p class="font-body-small text-body-small opacity-90">Based on your symptoms, we recommend a clinical consultation within 24 hours.</p>
+</div>
+</div>
+<button class="bg-white text-urgent px-6 py-2 rounded-lg font-button-text text-button-text shadow-sm hover:bg-neutral-50 transition-colors">
+                    Find Clinic
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-section-spacing">
+<!-- Main Content: Condition Cards (8/12) -->
+<div class="lg:col-span-8 space-y-gap-lg">
+<h2 class="font-heading-1 text-heading-1 text-on-surface mb-gap-sm">Possible Conditions</h2>
+<!-- Condition Card 1 -->
+<div class="bg-surface-container-lowest border border-border p-gap-lg rounded-[16px] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-gap-md">
+<div>
+<h3 class="font-heading-1 text-heading-1 text-on-surface">Acute Bronchitis</h3>
+<p class="font-body-regular text-body-regular text-on-surface-variant mt-1">An inflammation of the lining of your bronchial tubes, which carry air to and from your lungs. It often develops from a cold or other respiratory infection.</p>
+</div>
+<div class="text-right">
+<span class="text-primary font-bold text-heading-2">84%</span>
+<p class="text-disclaimer font-disclaimer text-secondary">Match Confidence</p>
+</div>
+</div>
+<!-- Confidence Bar -->
+<div class="mb-gap-md">
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-caution w-[84%] transition-all duration-1000"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-gap-sm border-t border-border">
+<div class="flex gap-gap-sm">
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Respiratory</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Common</span>
+</div>
+<a class="text-primary font-button-text text-button-text flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Condition Card 2 -->
+<div class="bg-surface-container-lowest border border-border p-gap-lg rounded-[16px] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-gap-md">
+<div>
+<h3 class="font-heading-1 text-heading-1 text-on-surface">Seasonal Influenza</h3>
+<p class="font-body-regular text-body-regular text-on-surface-variant mt-1">A viral infection that attacks your respiratory system—your nose, throat and lungs. Commonly called the flu, but it's different from stomach "flu" viruses.</p>
+</div>
+<div class="text-right">
+<span class="text-primary font-bold text-heading-2">62%</span>
+<p class="text-disclaimer font-disclaimer text-secondary">Match Confidence</p>
+</div>
+</div>
+<!-- Confidence Bar -->
+<div class="mb-gap-md">
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-safe w-[62%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-gap-sm border-t border-border">
+<div class="flex gap-gap-sm">
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Viral</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Seasonal</span>
+</div>
+<a class="text-primary font-button-text text-button-text flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Condition Card 3 -->
+<div class="bg-surface-container-lowest border border-border p-gap-lg rounded-[16px] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-gap-md">
+<div>
+<h3 class="font-heading-1 text-heading-1 text-on-surface">Pneumonia</h3>
+<p class="font-body-regular text-body-regular text-on-surface-variant mt-1">An infection that inflames the air sacs in one or both lungs. The air sacs may fill with fluid or pus, causing cough with phlegm or pus, fever, chills, and difficulty breathing.</p>
+</div>
+<div class="text-right">
+<span class="text-primary font-bold text-heading-2">41%</span>
+<p class="text-disclaimer font-disclaimer text-secondary">Match Confidence</p>
+</div>
+</div>
+<!-- Confidence Bar -->
+<div class="mb-gap-md">
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-emergency w-[41%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-gap-sm border-t border-border">
+<div class="flex gap-gap-sm">
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Infection</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant text-label-uppercase font-label-uppercase rounded">Serious</span>
+</div>
+<a class="text-primary font-button-text text-button-text flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Sidebar: (4/12) -->
+<aside class="lg:col-span-4 space-y-section-spacing">
+<!-- Map Preview Section -->
+<div class="bg-surface-container-lowest border border-border rounded-[16px] overflow-hidden shadow-sm">
+<div class="p-gap-lg">
+<h3 class="font-heading-2 text-heading-2 text-on-surface mb-1">Find a Doctor</h3>
+<p class="font-body-small text-body-small text-on-surface-variant">Available near San Francisco, CA</p>
+</div>
+<div class="h-48 bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="A clean, professional medical map visualization of San Francisco showing clinics and hospital markers. The style is minimalist with a light mode aesthetic, utilizing the primary blue color for interactive map icons and high-contrast lines for clarity. The lighting is bright and even, reinforcing the clinical trust and precision of a modern healthcare interface." data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI9hzjamNNYvBGTg48h69bHwXUVEpxK0taU9i8LF580rhLNsgPketMzuzHy-VYzkOyG5T1fPo4dVfB2oKq-3mC6A_TOpu-8tBoo2lNd08T5unR6x1YsPanyB9u2d3BIX3AbGLZKNIVMrdrNTwWfDvFq5Hd9sRduMtSHrb29IFTXYI8iPQCWO_I70JlRsJujxjA7-kg87FHXJh1R_S8WZasChuumhXupAZC9XsAOUAou2WYJMRqSVLTCXSyuMcPKA04M9HvEs0tQpE"/>
+<div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-button-text text-button-text shadow-lg hover:bg-primary-dark transition-all">
+                                Open Map
+                            </button>
+</div>
+</div>
+</div>
+<!-- What to do now Section -->
+<div class="bg-primary-container text-on-primary-container p-gap-lg rounded-[16px]">
+<div class="flex items-center gap-gap-sm mb-gap-md">
+<span class="material-symbols-outlined">checklist</span>
+<h3 class="font-heading-2 text-heading-2">What to do now</h3>
+</div>
+<ul class="space-y-gap-md">
+<li class="flex gap-gap-sm items-start">
+<span class="material-symbols-outlined text-on-primary-container/70 mt-0.5">check_circle</span>
+<span class="font-body-regular text-body-regular">Monitor your temperature every 4 hours.</span>
+</li>
+<li class="flex gap-gap-sm items-start">
+<span class="material-symbols-outlined text-on-primary-container/70 mt-0.5">check_circle</span>
+<span class="font-body-regular text-body-regular">Increase fluid intake (water, herbal tea).</span>
+</li>
+<li class="flex gap-gap-sm items-start">
+<span class="material-symbols-outlined text-on-primary-container/70 mt-0.5">check_circle</span>
+<span class="font-body-regular text-body-regular">Rest and avoid strenuous physical activity.</span>
+</li>
+<li class="flex gap-gap-sm items-start">
+<span class="material-symbols-outlined text-on-primary-container/70 mt-0.5">check_circle</span>
+<span class="font-body-regular text-body-regular">Book a virtual screening for official diagnosis.</span>
+</li>
+</ul>
+<button class="w-full mt-gap-lg bg-on-primary-container text-primary py-3 rounded-lg font-button-text text-button-text hover:bg-white transition-colors">
+                        Book Virtual Appointment
+                    </button>
+</div>
+<!-- Emergency Contact Card -->
+<div class="p-gap-lg bg-error-container text-on-error-container rounded-[16px] border border-error/20">
+<h4 class="font-heading-2 text-heading-2 mb-gap-xs">Immediate Danger?</h4>
+<p class="font-body-small text-body-small mb-gap-md">If you experience chest pain or severe difficulty breathing, call emergency services immediately.</p>
+<a class="flex items-center justify-center gap-gap-sm bg-error text-white py-2 rounded-lg font-bold" href="tel:911">
+<span class="material-symbols-outlined">call</span>
+                        Call Emergency Services
+                    </a>
+</div>
+</aside>
+</div>
+</main>
+<!-- Medical Disclaimer -->
+<section class="w-full bg-surface-container-low border-t border-border">
+<div class="max-w-7xl mx-auto px-margin-tablet py-8">
+<div class="bg-surface-container p-gap-md rounded-lg flex gap-gap-md items-start">
+<span class="material-symbols-outlined text-secondary shrink-0">info</span>
+<p class="font-disclaimer text-disclaimer text-secondary">
+<span class="font-bold text-on-surface">Medical Disclaimer:</span> This symptom checker is for informational purposes only and does not provide a professional medical diagnosis, treatment, or advice. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on MediTrack.
+                </p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-on-background border-t border-border dark:border-outline full-width bottom-0 mt-auto">
+<div class="w-full py-section-spacing px-margin-tablet flex flex-col items-center gap-gap-sm max-w-7xl mx-auto">
+<div class="font-label-uppercase text-label-uppercase text-on-surface mb-2">MediTrack Medical Systems</div>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-4">
+<a class="text-secondary hover:text-primary font-disclaimer text-disclaimer hover:underline transition-opacity" href="#">Medical Disclaimer</a>
+<a class="text-secondary hover:text-primary font-disclaimer text-disclaimer hover:underline transition-opacity" href="#">Privacy Policy</a>
+<a class="text-secondary hover:text-primary font-disclaimer text-disclaimer hover:underline transition-opacity" href="#">Terms of Service</a>
+<a class="text-secondary hover:text-primary font-disclaimer text-disclaimer hover:underline transition-opacity" href="#">Emergency Protocols</a>
+</div>
+<p class="text-secondary dark:text-secondary-fixed-dim font-disclaimer text-disclaimer opacity-90">
+                © 2024 MediTrack Medical Systems. For informational purposes only.
+            </p>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('scale-[1.005]');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('scale-[1.005]');
+            });
+        });
+    </script>
+</body></html>

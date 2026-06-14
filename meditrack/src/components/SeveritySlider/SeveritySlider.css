@@ -1,0 +1,239 @@
+/* SeveritySlider.css — Custom 1-10 severity range slider */
+
+.severity-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  width: 100%;
+}
+
+/* ── Label ── */
+.severity-slider__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+/* ── Current Value Display ── */
+.severity-slider__value-display {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.severity-slider__value-number {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: color 0.3s ease;
+}
+
+.severity-slider__value-number--low {
+  color: #16A34A;
+}
+
+.severity-slider__value-number--mid {
+  color: #CA8A04;
+}
+
+.severity-slider__value-number--high {
+  color: #DC2626;
+}
+
+.severity-slider__value-max {
+  font-size: 16px;
+  font-weight: 500;
+  color: #9CA3AF;
+}
+
+/* ── Track Container ── */
+.severity-slider__track-wrapper {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Native Range Input (hidden visually but functional) ── */
+.severity-slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  margin: 0;
+}
+
+/* Track background behind the input */
+.severity-slider__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #16A34A 0%,
+    #22C55E 15%,
+    #84CC16 30%,
+    #CA8A04 50%,
+    #EA580C 70%,
+    #DC2626 100%
+  );
+  z-index: 0;
+  overflow: hidden;
+}
+
+.severity-slider__track-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  z-index: 0;
+}
+
+.severity-slider__track-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #16A34A 0%,
+    #22C55E 15%,
+    #84CC16 30%,
+    #CA8A04 50%,
+    #EA580C 70%,
+    #DC2626 100%
+  );
+  z-index: 1;
+  transition: width 0.15s ease;
+}
+
+/* ── Webkit Thumb ── */
+.severity-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid #1A56DB;
+  box-shadow:
+    0 2px 8px rgba(26, 86, 219, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.severity-slider__input::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 4px 12px rgba(26, 86, 219, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.severity-slider__input::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+}
+
+/* ── Firefox Thumb ── */
+.severity-slider__input::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid #1A56DB;
+  box-shadow:
+    0 2px 8px rgba(26, 86, 219, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.severity-slider__input::-moz-range-thumb:hover {
+  transform: scale(1.1);
+}
+
+.severity-slider__input::-moz-range-track {
+  background: transparent;
+  border: none;
+  height: 8px;
+}
+
+/* ── Floating Thumb Label ── */
+.severity-slider__thumb-label {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  pointer-events: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1A56DB;
+  transition: left 0.15s ease;
+}
+
+/* ── Scale Labels ── */
+.severity-slider__labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2px;
+}
+
+.severity-slider__labels span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9CA3AF;
+  letter-spacing: 0.02em;
+}
+
+.severity-slider__labels span:first-child {
+  color: #16A34A;
+}
+
+.severity-slider__labels span:last-child {
+  color: #DC2626;
+}
+
+/* ── Tick Marks ── */
+.severity-slider__ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 14px;
+  margin-top: -4px;
+}
+
+.severity-slider__tick {
+  width: 2px;
+  height: 6px;
+  border-radius: 1px;
+  background: #D1D5DB;
+}

@@ -1,0 +1,122 @@
+.condition-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+  animation: ccFadeUp 0.5s ease both;
+  font-family: 'Inter', sans-serif;
+}
+
+.condition-card:hover {
+  border-color: #DBEAFE;
+  box-shadow: 0 4px 20px rgba(26, 86, 219, 0.08);
+}
+
+.condition-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.condition-card-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.condition-card-confidence {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1A56DB;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.confidence-bar-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #F3F4F6;
+  overflow: hidden;
+}
+
+.confidence-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #1A56DB, #3B82F6);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confidence-bar-fill.high {
+  background: linear-gradient(90deg, #1A56DB, #3B82F6);
+}
+
+.confidence-bar-fill.medium {
+  background: linear-gradient(90deg, #EA580C, #F59E0B);
+}
+
+.confidence-bar-fill.low {
+  background: linear-gradient(90deg, #9CA3AF, #D1D5DB);
+}
+
+.condition-card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6B7280;
+  margin: 0;
+}
+
+.condition-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.condition-tag {
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: #F3F4F6;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+.condition-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.condition-learn-more {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1A56DB;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.condition-learn-more:hover {
+  color: #1E40AF;
+}
+
+@keyframes ccFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

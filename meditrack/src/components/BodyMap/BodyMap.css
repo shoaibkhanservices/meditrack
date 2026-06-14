@@ -1,0 +1,137 @@
+/* ============================================================
+   Anatomical BodyMap Styling — Premium Healthcare Theme
+   ============================================================ */
+
+.body-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Toggle Switch (Pill Layout) */
+.body-map__toggle {
+  display: inline-flex;
+  background: rgba(8, 145, 178, 0.08);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(8, 145, 178, 0.15);
+  margin-bottom: 8px;
+}
+
+.body-map__toggle-btn {
+  background: none;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  user-select: none;
+  outline: none;
+}
+
+.body-map__toggle-btn:hover {
+  color: var(--color-primary);
+}
+
+.body-map__toggle-btn--active {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.12);
+}
+
+/* SVG Container */
+.body-map__svg-container {
+  position: relative;
+  width: 240px;
+  height: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(31, 38, 135, 0.03);
+  padding: 10px;
+}
+
+.body-map__svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Interactive SVG Regions */
+.body-map__region {
+  cursor: pointer;
+  transition: fill var(--transition-base), stroke var(--transition-base), stroke-width var(--transition-base);
+  outline: none;
+}
+
+.body-map__region--default {
+  fill: #E2E8F0;
+  stroke: #CBD5E1;
+  stroke-width: 1.5;
+}
+
+.body-map__region--default:hover {
+  fill: var(--color-primary-light);
+  stroke: var(--color-primary);
+  stroke-width: 2px;
+}
+
+.body-map__region--selected {
+  fill: var(--color-primary-light);
+  stroke: var(--color-primary);
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 0 8px rgba(8, 145, 178, 0.45));
+  animation: bodyRegionPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes bodyRegionPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(8, 145, 178, 0.3));
+    stroke-width: 2.2px;
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.65));
+    stroke-width: 2.8px;
+  }
+}
+
+/* Tooltip */
+.body-map__tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.body-map__tooltip--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hint text */
+.body-map__hint {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-align: center;
+}

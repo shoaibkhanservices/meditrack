@@ -1,0 +1,120 @@
+.splash-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: radial-gradient(ellipse at center, #FFFFFF 0%, #F0F4FF 70%, #E0EAFF 100%);
+  font-family: 'Inter', sans-serif;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.splash-logo {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  user-select: none;
+  animation: splashLogoIn 0.8s ease both;
+}
+
+@keyframes splashLogoIn {
+  from { opacity: 0; transform: scale(0.85) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.splash-logo-medi {
+  color: #1A56DB;
+}
+
+.splash-logo-track {
+  color: #111827;
+}
+
+.splash-tagline {
+  font-size: 16px;
+  color: #6B7280;
+  margin: 0;
+  animation: splashTagIn 0.8s ease 0.3s both;
+}
+
+@keyframes splashTagIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.splash-icon {
+  color: #1A56DB;
+  animation: splashHeartbeat 1.2s ease-in-out infinite;
+  margin-top: 8px;
+}
+
+@keyframes splashHeartbeat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.splash-loader-track {
+  position: absolute;
+  bottom: 60px;
+  width: 200px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(26, 86, 219, 0.12);
+  overflow: hidden;
+}
+
+.splash-loader-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1A56DB, #3B82F6);
+  animation: splashFill 2s ease-in-out forwards;
+}
+
+@keyframes splashFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Subtle floating particles */
+.splash-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(26, 86, 219, 0.1);
+  animation: splashFloat 4s ease-in-out infinite;
+}
+
+.splash-particle:nth-child(1) {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.splash-particle:nth-child(2) {
+  top: 30%;
+  right: 20%;
+  animation-delay: 0.8s;
+  width: 8px;
+  height: 8px;
+}
+
+.splash-particle:nth-child(3) {
+  bottom: 25%;
+  left: 25%;
+  animation-delay: 1.6s;
+  width: 4px;
+  height: 4px;
+}
+
+@keyframes splashFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-20px) scale(1.5); opacity: 0.6; }
+}
