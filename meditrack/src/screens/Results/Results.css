@@ -401,23 +401,20 @@
   color: var(--color-text-secondary);
 }
 
-/* Sticky Save report bar */
+/* Sticky Save report bar (floating capsule style) */
 .results-save-bar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 16px 24px;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
   display: flex;
   justify-content: center;
   z-index: 100;
+  pointer-events: none;
 }
 
 .results-save-btn {
+  pointer-events: auto;
   max-width: 320px;
   width: 100%;
   display: flex;
@@ -427,17 +424,124 @@
   background-color: var(--color-text-primary);
   color: var(--color-text-on-dark);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full); /* capsule style */
   height: 52px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-base);
+  box-shadow: 0 8px 24px rgba(22, 78, 99, 0.2);
 }
 
 .results-save-btn:hover {
   background-color: var(--color-primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 28px rgba(22, 78, 99, 0.3);
+}
+
+/* ---------- Print Media Configurations ---------- */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    font-size: 12pt !important;
+  }
+
+  .results-screen {
+    min-height: auto !important;
+    background: #FFFFFF !important;
+  }
+
+  /* Hide web interface controls */
+  .results-topbar,
+  .results-save-bar,
+  .results-new-btn,
+  .results-card--map,
+  .app-bg-blobs {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Reset layout grids for full page readability */
+  .results-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .results-grid {
+    display: block !important;
+  }
+
+  .results-main,
+  .results-sidebar {
+    width: 100% !important;
+    animation: none !important;
+    position: static !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* Printable Cards */
+  .results-card,
+  .results-disclaimer-section,
+  .urgency-banner {
+    background: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    color: #0F172A !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+    page-break-inside: avoid;
+  }
+
+  /* Clean high contrast banners */
+  .urgency-banner.emergency {
+    border-left: 6px solid #DC2626 !important;
+    background: #FEF2F2 !important;
+  }
+  .urgency-banner.urgent {
+    border-left: 6px solid #EA580C !important;
+    background: #FFF7ED !important;
+  }
+  .urgency-banner.caution {
+    border-left: 6px solid #CA8A04 !important;
+    background: #FEFCE8 !important;
+  }
+  .urgency-banner.safe {
+    border-left: 6px solid #16A34A !important;
+    background: #F0FDF4 !important;
+  }
+
+  .urgency-banner-action {
+    display: none !important;
+  }
+
+  /* Recommendations visual styling adjustments */
+  .results-card--recommendations {
+    color: #0F172A !important;
+    background: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+  }
+
+  .results-card--recommendations h3 {
+    color: #0F172A !important;
+    border-bottom: 1.5px solid #E2E8F0 !important;
+    padding-bottom: 6px !important;
+  }
+
+  .results-rec-icon {
+    color: #0891B2 !important;
+  }
+
+  /* Key symptoms chip adjustments */
+  .results-symptom-chip {
+    background: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #334155 !important;
+  }
 }

@@ -130,6 +130,25 @@ const responseSchema = {
   ],
 };
 
+function checkPromptInjection(text: string): boolean {
+  if (!text) return false;
+  const dangerousPatterns = [
+    /ignore\s+(?:all\s+)?previous\s+instructions/i,
+    /ignore\s+(?:all\s+)?prior\s+instructions/i,
+    /system\s+prompt/i,
+    /bypass\s+rules/i,
+    /forget\s+your\s+instructions/i,
+    /you\s+are\s+now\s+a/i,
+    /override\s+instructions/i,
+  ];
+  return dangerousPatterns.some((pattern) => pattern.test(text));
+}
+
+function sanitizeText(text: string): string {
+  if (!text) return '';
+  return text.replace(/<[^>]*>/g, '').trim();
+}
+
 export async function analyzeSymptoms(
   symptoms: SymptomEntry[],
   generalNotes: string,
@@ -137,11 +156,29 @@ export async function analyzeSymptoms(
 ): Promise<AnalysisResult> {
   const sessionId = 'session_' + Math.random().toString(36).substring(2, 11);
 
+  // Sanitization & Security checks
+  const sanitizedNotes = sanitizeText(generalNotes);
+  if (checkPromptInjection(sanitizedNotes)) {
+    throw new Error('Potential prompt injection attempt detected in general notes.');
+  }
+
+  const sanitizedSymptoms = symptoms.map((s) => {
+    const sanitizedFreeText = s.freeText ? sanitizeText(s.freeText) : '';
+    if (checkPromptInjection(sanitizedFreeText) || checkPromptInjection(s.symptomName)) {
+      throw new Error('Potential prompt injection attempt detected in symptoms.');
+    }
+    return {
+      ...s,
+      symptomName: sanitizeText(s.symptomName),
+      freeText: sanitizedFreeText,
+    };
+  });
+
   if (!genAI) {
     console.warn(
       '⚠️  [MediTrack] GEMINI_API_KEY is not defined. Using dynamic mock AI results.'
     );
-    return generateMockResponse(symptoms, generalNotes, sessionId);
+    return generateMockResponse(sanitizedSymptoms, sanitizedNotes, sessionId);
   }
 
   try {
@@ -152,7 +189,7 @@ User Profile:
 - Pre-existing Conditions: ${profile?.conditions?.join(', ') || 'None reported'}
 
 Symptom Entries:
-${symptoms
+${sanitizedSymptoms
   .map(
     (s, i) =>
       `${i + 1}. Region: ${s.region}, Symptom: ${s.symptomName}, Severity: ${s.severity}/10, Duration: ${s.duration}, Details: ${s.freeText || 'None'}`
@@ -160,7 +197,7 @@ ${symptoms
   .join('\n')}
 
 Additional User Notes:
-${generalNotes || 'None'}
+${sanitizedNotes || 'None'}
 `;
 
     // Retrieve the Gemini Flash 2.0 model with system instructions pre-configured
@@ -177,8 +214,13 @@ ${generalNotes || 'None'}
       },
     });
 
-    const responseText = result.response.text();
+    let responseText = result.response.text();
     if (responseText) {
+      responseText = responseText.trim();
+      // Clean up markdown code blocks if the response was wrapped in fences
+      if (responseText.startsWith('```')) {
+        responseText = responseText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+      }
       const parsed = JSON.parse(responseText.trim());
       return {
         sessionId,

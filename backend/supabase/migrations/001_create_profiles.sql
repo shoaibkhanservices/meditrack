@@ -43,17 +43,19 @@ CREATE TRIGGER set_updated_at
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, email)
+  INSERT INTO public.profiles (id, full_name, age, sex, pre_conditions)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
-    NEW.email
+    NULL,
+    NULL,
+    '{}'
   );
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- If you want to automatically link profiles on signup, uncomment the trigger below:
--- CREATE TRIGGER on_auth_user_created
---   AFTER INSERT ON auth.users
---   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+-- Automatically link profiles on signup
+CREATE OR REPLACE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();

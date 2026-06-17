@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FileText,
@@ -9,6 +10,7 @@ import {
 } from 'lucide-react';
 import UrgencyBanner from '../../components/UrgencyBanner/UrgencyBanner';
 import ConditionCard from '../../components/ConditionCard/ConditionCard';
+import EmergencyModal from '../../components/EmergencyModal/EmergencyModal';
 import { useSessionStore } from '../../stores/sessionStore';
 import { useSymptomStore } from '../../stores/symptomStore';
 import './Results.css';
@@ -18,6 +20,14 @@ export default function Results() {
   const currentResult = useSessionStore((state) => state.currentResult);
   const resetSession = useSessionStore((state) => state.reset);
   const resetSymptoms = useSymptomStore((state) => state.reset);
+
+  const [isEmergencyOpen, setIsEmergencyOpen] = useState(false);
+
+  useEffect(() => {
+    if (currentResult && currentResult.urgencyLevel === 'EMERGENCY') {
+      setIsEmergencyOpen(true);
+    }
+  }, [currentResult]);
 
   const handleNewCheck = () => {
     resetSession();
@@ -58,17 +68,44 @@ export default function Results() {
     }
   };
 
-  const handleAction = () => {
+  const getSuggestedSpecialty = () => {
+    if (!currentResult || !currentResult.conditions || currentResult.conditions.length === 0) {
+      return '';
+    }
+    const topCondition = currentResult.conditions[0].name.toLowerCase();
+    if (topCondition.includes('angina') || topCondition.includes('cardiac') || topCondition.includes('heart')) {
+      return 'Cardiologist';
+    }
+    if (topCondition.includes('headache') || topCondition.includes('migraine') || topCondition.includes('tension')) {
+      return 'Neurologist';
+    }
+    if (topCondition.includes('respiratory') || topCondition.includes('asthma') || topCondition.includes('lung')) {
+      return 'Pulmonologist';
+    }
+    return 'General Practitioner';
+  };
+
+  const handleBannerAction = () => {
     if (currentResult.urgencyLevel === 'EMERGENCY') {
       window.open('tel:911');
     } else {
-      // Find clinic mock
-      alert('Locating nearby clinics and hospitals...');
+      const specialty = getSuggestedSpecialty();
+      navigate(`/doctors?specialty=${encodeURIComponent(specialty)}`);
     }
+  };
+
+  const handleOpenMap = () => {
+    const specialty = getSuggestedSpecialty();
+    navigate(`/doctors?specialty=${encodeURIComponent(specialty)}`);
   };
 
   return (
     <div className="results-screen">
+      <EmergencyModal
+        isOpen={isEmergencyOpen}
+        onClose={() => setIsEmergencyOpen(false)}
+        emergencyNumber={currentResult.emergencyContact || '911'}
+      />
       {/* Top bar */}
       <div className="results-topbar">
         <div className="results-topbar__logo">
@@ -95,7 +132,7 @@ export default function Results() {
             <UrgencyBanner
               urgencyLevel={currentResult.urgencyLevel}
               description={getUrgencyDescription(currentResult.urgencyLevel)}
-              onAction={handleAction}
+              onAction={handleBannerAction}
             />
 
             {/* Possible Conditions */}
@@ -154,13 +191,13 @@ export default function Results() {
                 </div>
                 <div className="results-map-info">
                   <p className="results-map-heading">Nearest Medical Facilities</p>
-                  <p className="results-map-sub">3 clinics available within 2 miles</p>
+                  <p className="results-map-sub">Interactive clinic map available</p>
                 </div>
               </div>
               <button
                 type="button"
                 className="results-map-btn"
-                onClick={handleAction}
+                onClick={handleOpenMap}
               >
                 <MapPin size={16} />
                 <span>Open Map Directory</span>
@@ -195,7 +232,7 @@ export default function Results() {
         <button
           type="button"
           className="results-save-btn"
-          onClick={() => alert('Demo Feature: PDF report generated and downloaded successfully.')}
+          onClick={() => window.print()}
         >
           <FileText size={18} />
           <span>Download PDF Report</span>

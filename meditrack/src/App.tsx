@@ -7,6 +7,7 @@ import DashboardLayout from './screens/DashboardLayout/DashboardLayout';
 import SymptomDetails from './screens/SymptomDetails/SymptomDetails';
 import Analyzing from './screens/Analyzing/Analyzing';
 import Results from './screens/Results/Results';
+import Doctors from './screens/Doctors/Doctors';
 import './index.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/symptom-details" element={<SymptomDetails />} />
         <Route path="/analyzing" element={<Analyzing />} />
         <Route path="/results" element={<Results />} />
+        <Route path="/doctors" element={<Doctors />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

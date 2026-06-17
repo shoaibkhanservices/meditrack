@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home as HomeIcon, ClipboardList, User } from 'lucide-react';
+import { Home as HomeIcon, ClipboardList, MessageSquare, User } from 'lucide-react';
 import Home from '../Home/Home';
 import History from '../History/History';
+import Assistant from '../Assistant/Assistant';
 import Profile from '../Profile/Profile';
 import { useAuthStore } from '../../stores/authStore';
 import './DashboardLayout.css';
 
-type TabType = 'home' | 'history' | 'profile';
+type TabType = 'home' | 'history' | 'assistant' | 'profile';
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function DashboardLayout() {
         return <Home />;
       case 'history':
         return <History />;
+      case 'assistant':
+        return <Assistant />;
       case 'profile':
         return <Profile />;
       default:
@@ -62,6 +65,15 @@ export default function DashboardLayout() {
         >
           <ClipboardList size={22} className="dashboard-nav-icon" />
           <span className="dashboard-nav-label">History</span>
+        </button>
+
+        <button
+          type="button"
+          className={`dashboard-nav-item ${activeTab === 'assistant' ? 'active' : ''}`}
+          onClick={() => setActiveTab('assistant')}
+        >
+          <MessageSquare size={22} className="dashboard-nav-icon" />
+          <span className="dashboard-nav-label">Assistant</span>
         </button>
 
         <button

@@ -214,29 +214,26 @@
   font-weight: 600;
 }
 
-/* Glassmorphic Bottom CTA */
+/* Glassmorphic Bottom CTA (floating above dashboard navbar) */
 .home-bottom-cta {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px 24px;
-  padding-bottom: max(16px, env(safe-area-inset-bottom));
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  bottom: 104px; /* Float above floating dashboard-nav which is at bottom: 24px, height: 68px */
+  left: 24px;
+  right: 24px;
   display: flex;
   justify-content: center;
-  z-index: 20;
+  z-index: 900;
+  pointer-events: none; /* Let clicks pass through outer wrapper */
+  animation: slideUp var(--transition-slow) ease forwards;
 }
 
 .home-cta-btn {
+  pointer-events: auto; /* Re-enable clicks on the button */
   width: 100%;
   max-width: 440px;
   height: 52px;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full); /* capsule shape */
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   color: var(--color-text-on-dark);
   font-size: 16px;
@@ -244,23 +241,16 @@
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: all var(--transition-base);
-  box-shadow: 0 4px 14px rgba(8, 145, 178, 0.25);
+  box-shadow: 0 8px 20px rgba(8, 145, 178, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
 
-.home-cta-btn:hover:not(:disabled) {
+.home-cta-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.35);
-}
-
-.home-cta-btn:disabled {
-  background: #CBD5E1;
-  color: #94A3B8;
-  box-shadow: none;
-  cursor: not-allowed;
+  box-shadow: 0 10px 24px rgba(8, 145, 178, 0.35);
 }
 
 .home-cta-badge {

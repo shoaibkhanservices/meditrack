@@ -28,19 +28,19 @@ const urgencyConfig: Record<
     label: 'See a Doctor Today',
     Icon: AlertTriangle,
     actionLabel: 'Find Clinic',
-    cssModifier: 'see_doctor_today',
+    cssModifier: 'urgent',
   },
   MONITOR_AT_HOME: {
     label: 'Monitor at Home',
     Icon: Eye,
     actionLabel: 'View Tips',
-    cssModifier: 'monitor_at_home',
+    cssModifier: 'caution',
   },
   ROUTINE_CHECKUP: {
-    label: 'Routine Checkup',
+    label: 'Routine Triage',
     Icon: CheckCircle,
     actionLabel: 'Schedule',
-    cssModifier: 'routine_checkup',
+    cssModifier: 'safe',
   },
 };
 
@@ -53,23 +53,22 @@ export default function UrgencyBanner({
   const { label, Icon, actionLabel, cssModifier } = config;
 
   return (
-    <div className={`urgency-banner urgency-banner--${cssModifier}`}>
-      {/* Icon */}
-      <div className="urgency-banner__icon">
-        <Icon size={22} strokeWidth={2.5} />
-      </div>
-
-      {/* Content */}
-      <div className="urgency-banner__content">
-        <div className="urgency-banner__level">{label}</div>
-        <p className="urgency-banner__description">{description}</p>
+    <div className={`urgency-banner ${cssModifier}`}>
+      <div className="urgency-banner-content">
+        <div className="urgency-banner-icon">
+          <Icon size={22} strokeWidth={2.5} />
+        </div>
+        <div className="urgency-banner-text">
+          <h3>{label}</h3>
+          <p>{description}</p>
+        </div>
       </div>
 
       {/* Action Button */}
       {onAction && (
         <button
           type="button"
-          className="urgency-banner__action"
+          className="urgency-banner-action"
           onClick={onAction}
         >
           {actionLabel}

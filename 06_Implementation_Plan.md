@@ -6,7 +6,7 @@
 
 ## 1. Build Strategy
 
-MediTrack is built in 5 phases over an estimated 12-week solo developer timeline. Each phase ends with a working, testable deliverable. The AI coding agent should implement phases in order — later phases depend on earlier ones.
+MediTrack is built in 6 phases over an estimated 14-week solo developer timeline. Each phase ends with a working, testable deliverable. The AI coding agent should implement phases in order — later phases depend on earlier ones.
 
 > **Golden Rule:** Build the thinnest possible vertical slice first. By end of Phase 1, a user should be able to enter symptoms and see an AI response — even if it looks ugly. Polish comes after core logic works.
 
@@ -68,19 +68,30 @@ MediTrack is built in 5 phases over an estimated 12-week solo developer timeline
 | P4-06: UI Polish | Implement full color system, typography scale, card shadows, animations per design brief. | App matches design brief visually |
 | P4-07: Accessibility | Test with VoiceOver + TalkBack. Add accessibilityLabel to all interactive elements. | Core flow navigable via screen reader |
 
-### Phase 5 — Testing, Security & Deploy (Weeks 10-12)
+### Phase 5 — Testing, Security & Hardening (Weeks 10-11)
 
-**Goal:** Hardened, tested app ready for submission.
+**Goal:** Ensure the application is secure against prompt injection, rate-limited against abuse, covered by unit/integration tests, and fully compliant with privacy and clinical disclaimer requirements.
 
 | Task | Details | Acceptance Criteria |
 |---|---|---|
-| P5-01: Rate Limiting | Add express-rate-limit to backend. Configure per-user limits. | 11th request in 1hr returns 429 |
-| P5-02: Input Sanitization | Sanitize all user input before AI prompt construction. Prevent prompt injection. | Special characters in free text do not break AI call |
-| P5-03: Unit Tests | Test AI response parser, offline decision tree, session sync logic with Jest. | All tests pass in CI |
-| P5-04: E2E Flow Test | Manual test: full flow from symptom entry → results → map → history on real device. | No crashes on Android + iOS physical devices |
-| P5-05: Backend Deploy | Deploy Express API to Railway or Render. Set all env vars. Verify HTTPS. | POST /api/analyze responds from public URL |
-| P5-06: App Build | eas build for Android APK + iOS IPA. Test on TestFlight / internal track. | Build installs and runs on real devices |
-| P5-07: Disclaimer Review | Legal review of all AI disclaimer copy. Ensure no language implies diagnosis. | Disclaimers present on all result screens |
+| P5-01: Rate Limiting | Add `express-rate-limit` to Express backend. Configure per-IP/user limits for `/api/analyze` (e.g. 10 requests/hour) and `/api/doctors` (e.g. 30 requests/hour). | 11th analyze request in 1 hour returns HTTP 429 |
+| P5-02: Input Sanitization | Sanitize frontend symptoms and free-text inputs prior to backend transmission. Filter out prompt injection keywords (e.g., "ignore previous instructions") to maintain safety boundaries. | Prompts containing bypass attempts are blocked/cleaned; AI logic holds |
+| P5-03: Unit & Integration Tests | Set up a test suite using Vitest/Jest. Write tests for state stores, API timeout fallbacks, leaflet coordinate parsers, and backend Gemini response cleaning. | Tests pass cleanly with no warning outputs |
+| P5-04: Security & RLS Audit | Perform audit of Supabase Row Level Security (RLS) policies on `profiles`, `sessions`, `symptoms`, and `conditions` tables to prevent unauthorized access. | Users can only access/write their own records; guest records stay local |
+| P5-05: Clinical Disclaimer Review | Legal-clinical verification of triage disclaimers. Ensure all recommendations emphasize "non-diagnostic information only" and make dial buttons clear. | Disclaimer banner and Emergency Modal visible and readable in all triage states |
+
+### Phase 6 — Production Deployment, CI/CD & PWA (Weeks 12-14)
+
+**Goal:** Deploy frontend/backend services, set up CI/CD pipelines, package as a Progressive Web App (PWA) for home screen installation, and establish monitoring.
+
+| Task | Details | Acceptance Criteria |
+|---|---|---|
+| P6-01: Backend Production Deploy | Deploy Express API to Railway or Render. Configure environment variables (e.g. `GEMINI_API_KEY`, `PORT`) and enforce SSL. | GET `/health` and POST `/api/analyze` respond over secure HTTPS |
+| P6-02: Frontend Vercel Deploy | Deploy React SPA to Vercel. Set `VITE_API_URL` pointing to production API and wire Supabase client variables. | Frontend loads and completes end-to-end symptom triage on live Vercel URL |
+| P6-03: Progressive Web App (PWA) | Add manifest.json, custom icons, and register service workers. Configure caching of core static assets for offline startup. | App is installable on iOS/Android home screen; launches with standalone UI shell |
+| P6-04: CI/CD Automation | Set up GitHub Actions workflow to run lint, type-check (`tsc`), and unit tests automatically on every pull request. | Failed tests or compile warnings block pull request merges |
+| P6-05: Analytics & Monitoring | Add privacy-focused telemetry (e.g. Sentry/loggers) to capture client-side runtime errors and API timeouts without tracking PII. | Frontend/backend errors log to monitoring dashboard for quick troubleshooting |
+
 
 ---
 

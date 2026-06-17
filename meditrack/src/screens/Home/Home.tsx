@@ -129,21 +129,20 @@ const Home = () => {
         )}
       </div>
 
-      {/* Fixed bottom CTA */}
-      <div className="home-bottom-cta">
-        <button
-          type="button"
-          className="home-cta-btn"
-          disabled={symptomCount === 0}
-          onClick={() => navigate('/symptom-details')}
-        >
-          Next: Describe Symptoms
-          <ArrowRight size={18} />
-          {symptomCount > 0 && (
+      {/* Fixed bottom CTA - only shown when symptoms are selected */}
+      {symptomCount > 0 && (
+        <div className="home-bottom-cta">
+          <button
+            type="button"
+            className="home-cta-btn"
+            onClick={() => navigate('/symptom-details')}
+          >
+            Next: Describe Symptoms
+            <ArrowRight size={18} />
             <span className="home-cta-badge">{symptomCount}</span>
-          )}
-        </button>
-      </div>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
