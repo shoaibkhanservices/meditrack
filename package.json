@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm install --prefix meditrack",
+    "build": "npm run build --prefix meditrack && node -e \"const fs = require('fs'); fs.rmSync('dist', { recursive: true, force: true }); fs.cpSync('meditrack/dist', 'dist', { recursive: true });\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
